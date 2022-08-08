@@ -1,0 +1,10 @@
+StorePath: /nix/store/73rp8gam5bpihafxbk3x39dza2iw3lzi-diffutils-3.8
+URL: nar/167xqzpdrvmdswyhdic4bp9z11gp5zjbpw42rrmdb1x2clmwsbb0.nar.xz
+Compression: xz
+FileHash: sha256:167xqzpdrvmdswyhdic4bp9z11gp5zjbpw42rrmdb1x2clmwsbb0
+FileSize: 253848
+NarHash: sha256:1wgy3smay120iq2ndzgx0alprvvfwqnwg93qqlycsvam918nk30m
+NarSize: 1485408
+References: 73rp8gam5bpihafxbk3x39dza2iw3lzi-diffutils-3.8 7fz6dhhriwv6n4kdg05qi8cwf7mfqza9-glibc-2.35-163 xp5z3k851fs7haqbcwqax1hh4pynzla9-coreutils-9.1
+Deriver: 7lsdmmf0h5i46b1z5az7mmqbj1jsqng1-diffutils-3.8.drv
+Sig: cache.nixos.org-1:5A0NM+3xXRDZbJDC3q5PAcajPOO3NoumRsZSB6aM5ai++nq7t7Fr3RgjnQmMqpj+FqeO1j4tkKGrucGZfasiBQ==
