@@ -1,0 +1,10 @@
+StorePath: /nix/store/sxgs416j8z3x9mj97939syyp8cv6064b-openssl-1.1.1q
+URL: nar/0g49c460w0sm8mm6dpn8vi2nxfxfbzbsfg56j9vad5xq4rwb474z.nar.xz
+Compression: xz
+FileHash: sha256:0g49c460w0sm8mm6dpn8vi2nxfxfbzbsfg56j9vad5xq4rwb474z
+FileSize: 1408140
+NarHash: sha256:17g6hdsvi9x39zhxr51gg0fhz8y9lzl6f8yxisyhzq67vyhy52g3
+NarSize: 4206848
+References: 7fz6dhhriwv6n4kdg05qi8cwf7mfqza9-glibc-2.35-163 sxgs416j8z3x9mj97939syyp8cv6064b-openssl-1.1.1q
+Deriver: 75cps1mjpqwvfrkd4zl3w89kdivaxpip-openssl-1.1.1q.drv
+Sig: cache.nixos.org-1:xm00FR8HeFcMm+0CpGgDtyHAB0p3EQ/nSlLndMCO5taNulDhYNBaf3+J5PiYBoxYOaLHumGuDhetEPy+li6+Cg==

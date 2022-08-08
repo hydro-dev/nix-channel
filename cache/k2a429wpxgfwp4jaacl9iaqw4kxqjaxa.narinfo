@@ -1,0 +1,10 @@
+StorePath: /nix/store/k2a429wpxgfwp4jaacl9iaqw4kxqjaxa-gcc-11.3.0-lib
+URL: nar/025hdcbyhl53xhwbxmk0dppsg85rg72h6bp5k4b1ivcca057rs2z.nar.xz
+Compression: xz
+FileHash: sha256:025hdcbyhl53xhwbxmk0dppsg85rg72h6bp5k4b1ivcca057rs2z
+FileSize: 1813228
+NarHash: sha256:02ishdl2mx5a0g5i8zx3rikzmqvqjfxik0mrfcmfwr0gnqp7jaf4
+NarSize: 8364792
+References: 7fz6dhhriwv6n4kdg05qi8cwf7mfqza9-glibc-2.35-163 ck17nf5q2m51d9jpkpsirx91s64vh202-glibc-2.35-163-dev k2a429wpxgfwp4jaacl9iaqw4kxqjaxa-gcc-11.3.0-lib
+Deriver: 9qdbhld0lpqkmqzn032m8cqa9mdfgc1n-gcc-11.3.0.drv
+Sig: cache.nixos.org-1:MIeXbd+0Tvr614CAWozbs0e75nZ1kZREFVcvBWgAYX18RJGdNvn870Az9oray2NGJUQNtGC8tXy3PMc6fO81DQ==

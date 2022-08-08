@@ -1,0 +1,10 @@
+StorePath: /nix/store/2wzmsj7mpz6sgblnx3n41cg3vvj9nhvz-mongodb-5.0.6
+URL: nar/15gns8mcs37qykijmlhl142hj50jbmqfpfzg1ci9m9ggrgq32ily.nar.xz
+Compression: xz
+FileHash: sha256:15gns8mcs37qykijmlhl142hj50jbmqfpfzg1ci9m9ggrgq32ily
+FileSize: 26034524
+NarHash: sha256:0y7gp5mbn77h0ggkmwk3yi1439w4jc7y6s6ciy70jnghl0cph7ds
+NarSize: 120373600
+References: 1g2bhd3h665y7z9ph01lwsmi7ymiv995-xz-5.2.5 3swkl3277aj4g59jprynfj64q0k16m3c-curl-7.84.0 7fz6dhhriwv6n4kdg05qi8cwf7mfqza9-glibc-2.35-163 sxgs416j8z3x9mj97939syyp8cv6064b-openssl-1.1.1q
+Deriver: 3qn9kiv6yvb21cj8bwcbfa50zgqm1xsv-mongodb-5.0.6.drv
+Sig: hydro.ac:95hFOGkcyRe4yFtd8G5ySiE3A4A2l17cqqqcxykIU/w1JtAfpBxmD4c/p9UV21vi2lMxgAcO+AnxJdEcXlM8BQ==
