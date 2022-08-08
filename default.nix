@@ -6,7 +6,9 @@ let
   callPackage = pkgs.lib.callPackageWith (pkgs // self);
 
   self = {
-    mongodb = callPackage ./mongodb.nix {};
+    mongodb = import ./mongodb.nix;
+    mongodb5 = callPackage ./mongodb.nix { version = "5.0.6"; };
+    mongodb4 = callPackage ./mongodb.nix { version = "4.4.15"; };
     judge = callPackage ./judge.nix {};
   };
 in
