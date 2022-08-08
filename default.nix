@@ -6,7 +6,7 @@ let
   callPackage = pkgs.lib.callPackageWith (pkgs // self);
 
   self = {
-    mongo = callPackage ./mongo.nix {};
+    mongodb = callPackage ./mongodb.nix {};
   };
 in
 self
