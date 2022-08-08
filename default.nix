@@ -1,18 +1,12 @@
+{ system ? builtins.currentSystem }:
+
 let
-  # Import sources
-  sources = import ./nix/sources.nix;
+  pkgs = import <nixpkgs> { inherit system; };
 
-  hello = pkgs.writeShellScriptBin "hello" ''
-    echo "Hello from the Nix channel overlay!"
-  '';
+  callPackage = pkgs.lib.callPackageWith (pkgs // self);
 
-  pkgs = import sources.nixpkgs {
-    overlays = [
-      (self: super: {
-        inherit hello;
-      })
-    ];
+  self = {
+    mongo = callPackage ./mongo.nix {};
   };
-
-# And return that specific nixpkgs
-in sources.nixpkgs
+in
+self
