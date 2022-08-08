@@ -3,10 +3,21 @@ name: CI
 on: [ push, pull_request ]
 jobs:
   nix-channel-deploy:
-    needs: omnilint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/nix-channel-build
         env:
           NIX_CACHE_PRIV_KEY: ${{ secrets.NIX_CACHE_PRIV_KEY }}
+      - name: Setup Pages
+        if: github.ref == 'refs/heads/master'
+        uses: actions/configure-pages@v1
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        if: github.ref == 'refs/heads/master'
+        with:
+          path: '_output'
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/master'
+        id: deployment
+        uses: actions/deploy-pages@main
