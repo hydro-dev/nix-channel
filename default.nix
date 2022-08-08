@@ -12,6 +12,7 @@ let
     mongodb4 = callPackage ./mongodb.nix { version = "4.4.15"; };
     mongosh5 = callPackage ./mongodb.nix { version = "5.0.10"; type = "shell"; };
     mongosh4 = callPackage ./mongodb.nix { version = "4.4.15"; type = "shell"; };
+    sandbox = callPackage ./sandbox.nix {};
     judge = callPackage ./judge.nix {};
   };
 in
