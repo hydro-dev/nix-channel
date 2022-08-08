@@ -11,7 +11,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            experimental-features =
+            experimental-features = nix-command
       - env:
           NIX_CACHE_PRIV_KEY: ${{ secrets.NIX_CACHE_PRIV_KEY }}
         run: |
@@ -28,7 +28,7 @@ jobs:
           : Populate cache
           export NIX_SECRET_KEY_FILE="$PWD/nix-cache-priv-key.pem"
           echo "$NIX_CACHE_PRIV_KEY" >"$NIX_SECRET_KEY_FILE"
-          nix sign-paths -k "$NIX_SECRET_KEY_FILE" "${OUT_PATHS[@]}"
+          nix-store sign -k "$NIX_SECRET_KEY_FILE" "${OUT_PATHS[@]}"
           nix copy --to "file:///$PWD/result/cache" "${OUT_PATHS[@]}"
           nix path-info --store "file:///$PWD/result/cache" --json
           : Done
