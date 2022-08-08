@@ -1,6 +1,7 @@
 { 
   pkgs ? import <nixpkgs> { system = "x86_64-linux"; },
-  version ? "5.0.6"
+  version ? "5.0.6",
+  type ? "server"
 }:
 
 let
@@ -8,15 +9,28 @@ let
   major = pkgs.lib.elemAt sversion 0;
   minor = pkgs.lib.elemAt sversion 1;
   sha256dict = {
-    "4.4.15" = "sha256-BtqsK0A+lL8GajRc2WDMUESVEsTDk4e3ULAhVTIkI8U=";
-    "5.0.6" = "sha256-Rk43PNQN8p2/3XDDjWOzJmzBjs39CR06kLrTtr+5ngo=";
+    "server4.4.15" = "sha256-BtqsK0A+lL8GajRc2WDMUESVEsTDk4e3ULAhVTIkI8U=";
+    "server5.0.10" = "sha256-NV+a1bBdY5z2559cJYgNYlTvoRfGHVWrvmyWcCLgxls=";
+    "server6.0.0" = "sha256-AJUQ8Jo/T4PDnYtFg3njUZyoH9XXzleZ+nj/knCBKzg=";
+    "shell4.4.15" = "sha256-kFNfKgYiK8RMD9ztD0yYvVcjbuW9031WaW2n5kRoHJI=";
+    "shell5.0.10" = "sha256-tXcN0/Q4XZsQHGjpXSxT+wg52QlKKleJElwEb/CEMuQ=";
+    # "shell6.0.0" = "sha256-ONTxTi7ezZi0BwPq+tjAuVS0HUw0sLW9u+883BfjNZo=";
   };
+  namedict = {
+    "server" = "mongodb";
+    "shell" = "mongosh";
+  };
+  binaryName = {
+    "server" = "mongod";
+    "shell" = "mongo";
+  };
+  versionDetail = pkgs.lib.concatStrings [type version];
 in pkgs.stdenv.mkDerivation {
-  name = "mongodb-${version}";
+  name = "${pkgs.lib.getAttr type namedict}-${version}";
   system = "x86_64-linux";
   src = pkgs.fetchurl {
-    url = "https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/${major}.${minor}/multiverse/binary-amd64/mongodb-org-server_${version}_amd64.deb";
-    sha256 = if pkgs.lib.hasAttr version sha256dict then pkgs.lib.getAttr version sha256dict else "";
+    url = "https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/${major}.${minor}/multiverse/binary-amd64/mongodb-org-${type}_${version}_amd64.deb";
+    sha256 = if pkgs.lib.hasAttr versionDetail sha256dict then pkgs.lib.getAttr versionDetail sha256dict else "";
   };
   nativeBuildInputs = [
     pkgs.autoPatchelfHook 
@@ -32,7 +46,7 @@ in pkgs.stdenv.mkDerivation {
     mkdir -p $out
     dpkg -x $src $out
     mkdir $out/bin
-    mv $out/usr/bin/mongod $out/bin/mongod
+    mv $out/usr/bin/${pkgs.lib.getAttr type binaryName} $out/bin/${pkgs.lib.getAttr type binaryName}
   '';
 
   meta = {
