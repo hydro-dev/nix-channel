@@ -7,6 +7,7 @@ let
 
   self = {
     mongodb = callPackage ./mongodb.nix {};
+    judge = callPackage ./judge.nix {};
   };
 in
 self
