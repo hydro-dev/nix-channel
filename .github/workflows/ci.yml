@@ -33,6 +33,7 @@ jobs:
           echo "$NIX_CACHE_PRIV_KEY" >"$NIX_SECRET_KEY_FILE"
           nix store sign -k "$NIX_SECRET_KEY_FILE" "${OUT_PATHS[@]}"
           nix copy --to "file:///$PWD/_output/cache" "${OUT_PATHS[@]}"
+          echo "nix.hydro.ac" >"_output/CNAME"
           # nix path-info --store "file:///$PWD/_output/cache" --json
           : Done 
       - name: deploy
