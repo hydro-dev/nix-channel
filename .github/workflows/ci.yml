@@ -28,7 +28,7 @@ jobs:
           : Populate cache
           export NIX_SECRET_KEY_FILE="$PWD/nix-cache-priv-key.pem"
           echo "$NIX_CACHE_PRIV_KEY" >"$NIX_SECRET_KEY_FILE"
-          nix-store sign -k "$NIX_SECRET_KEY_FILE" "${OUT_PATHS[@]}"
+          nix sign-paths -k "$NIX_SECRET_KEY_FILE" "${OUT_PATHS[@]}"
           nix copy --to "file:///$PWD/result/cache" "${OUT_PATHS[@]}"
           nix path-info --store "file:///$PWD/result/cache" --json
           : Done
