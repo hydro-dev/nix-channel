@@ -13,6 +13,7 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - env:
           NIX_CACHE_PRIV_KEY: ${{ secrets.NIX_CACHE_PRIV_KEY }}
+        shell: bash
         run: |
           set -e -x -o pipefail
           mkdir -p "result/cache"
@@ -21,13 +22,13 @@ jobs:
               --transform "s,^,${PWD##*/}/," \
               --owner=0 --group=0 --mtime="1970-01-01 00:00:00 UTC"
           touch "result/index.html"
-          printf 'https://nix.hydro.ac/cache' > "result/binary-cache-url"
+          printf 'https://nix.hydro.ac/cache' >"result/binary-cache-url"
           : Build
-          mapfile -t OUT_PATHS < <( nix-build )
+          mapfile -t OUT_PATHS < <(nix-build)
           : Populate cache
           export NIX_SECRET_KEY_FILE="$PWD/nix-cache-priv-key.pem"
           echo "$NIX_CACHE_PRIV_KEY" >"$NIX_SECRET_KEY_FILE"
-          nix store sign -k "$NIX_SECRET_KEY_FILE" "${OUT_PATHS[@]}" --derivation hydro
+          nix store sign -k "$NIX_SECRET_KEY_FILE" "${OUT_PATHS[@]}"
           nix copy --to "file:///$PWD/result/cache" "${OUT_PATHS[@]}"
           nix path-info --store "file:///$PWD/result/cache" --json
           : Done
