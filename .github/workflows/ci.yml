@@ -9,6 +9,9 @@ jobs:
       - uses: cachix/install-nix-action@v15
         with:
           nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            experimental-features =
       - env:
           NIX_CACHE_PRIV_KEY: ${{ secrets.NIX_CACHE_PRIV_KEY }}
         run: |
@@ -24,7 +27,7 @@ jobs:
           mapfile -t OUT_PATHS < <( nix-build )
           : Populate cache
           export NIX_SECRET_KEY_FILE="$PWD/nix-cache-priv-key.pem"
-          echo "$NIX_CACHE_PRIV_KEY" > "$NIX_SECRET_KEY_FILE"
+          echo "$NIX_CACHE_PRIV_KEY" >"$NIX_SECRET_KEY_FILE"
           nix sign-paths -k "$NIX_SECRET_KEY_FILE" "${OUT_PATHS[@]}"
           nix copy --to "file:///$PWD/result/cache" "${OUT_PATHS[@]}"
           nix path-info --store "file:///$PWD/result/cache" --json
