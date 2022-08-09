@@ -14,6 +14,7 @@ pkgs.buildEnv {
     pkgs.gcc
     pkgs.fpc
   ] ++ (if !minimal then [
+    pkgs.gdb
     pkgs.ghc
     pkgs.rustc
     pkgs.python2
