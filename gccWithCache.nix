@@ -39,4 +39,4 @@ let
     ensureCache iostream
     ensureCache cstdio
   '';
-in gccPatched
+in pkgs.wrapCC gccPatched

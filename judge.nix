@@ -4,14 +4,16 @@
   minimal ? false
 }:
 
-pkgs.buildEnv {
+let
+  gcc = import ./gcc.nix {};
+in pkgs.buildEnv {
   name = "judge${if minimal then "-minimal" else ""}";
   paths = [
     pkgs.busybox
     pkgs.bash
     pkgs.diffutils
     pkgs.unzip
-    pkgs.gcc
+    gcc
     pkgs.fpc
   ] ++ (if !minimal then [
     pkgs.gdb

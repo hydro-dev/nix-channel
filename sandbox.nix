@@ -4,11 +4,11 @@
 
 let
 in pkgs.stdenv.mkDerivation {
-  name = "hydro-sandbox-1.4.0";
+  name = "hydro-sandbox-1.5.0";
   system = "x86_64-linux";
   src = pkgs.fetchurl {
     url = "https://kr.hydro.ac/download/sandbox";
-    sha256 = "sha256-d3fElcMnJdRjEPZb50BWaLK/kQ0prDtBZd+HPs1nuBo=";
+    sha256 = "sha256-WDMzG4TIxfnfaWPhfw5SlgFcNQTj/Jys45b4R5jKzpw=";
   };
   unpackPhase = "true";
   installPhase = ''
