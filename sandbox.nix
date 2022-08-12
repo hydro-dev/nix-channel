@@ -14,6 +14,7 @@ in pkgs.stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp $src $out/bin/hydro-sandbox
+    chmod +x $out/bin/hydro-sandbox
   '';
 
   meta = {
