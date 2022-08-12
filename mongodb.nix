@@ -1,7 +1,8 @@
 { 
   pkgs ? import <nixpkgs> { system = "x86_64-linux"; },
   version ? "5.0.6",
-  type ? "server"
+  type ? "server",
+  mirror ? "https://repo.mongodb.org/"
 }:
 
 let
@@ -29,7 +30,7 @@ in pkgs.stdenv.mkDerivation {
   name = "${pkgs.lib.getAttr type namedict}-${version}";
   system = "x86_64-linux";
   src = pkgs.fetchurl {
-    url = "https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/${major}.${minor}/multiverse/binary-amd64/mongodb-org-${type}_${version}_amd64.deb";
+    url = "${mirror}apt/ubuntu/dists/focal/mongodb-org/${major}.${minor}/multiverse/binary-amd64/mongodb-org-${type}_${version}_amd64.deb";
     sha256 = if pkgs.lib.hasAttr versionDetail sha256dict then pkgs.lib.getAttr versionDetail sha256dict else "";
   };
   nativeBuildInputs = [
