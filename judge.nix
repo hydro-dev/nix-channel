@@ -9,7 +9,7 @@ let
 in pkgs.buildEnv {
   name = "judge${if minimal then "-minimal" else ""}";
   paths = [
-    pkgs.busybox
+    pkgs.coreutils
     pkgs.bash
     pkgs.diffutils
     pkgs.unzip
