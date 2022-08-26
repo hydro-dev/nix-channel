@@ -35,5 +35,5 @@ in pkgs.buildEnv {
     pkgs.verilog
   ] else []);
   ignoreCollisions = true;
-  pathsToLink = [ "/bin" ];
+  pathsToLink = [ "/" ];
 }
