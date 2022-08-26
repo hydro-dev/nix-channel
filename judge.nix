@@ -36,4 +36,7 @@ in pkgs.buildEnv {
   ] else []);
   ignoreCollisions = true;
   pathsToLink = [ "/" ];
+  postBuild = ''
+    date >$out/timestamp
+  '';
 }
