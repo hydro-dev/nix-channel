@@ -5,7 +5,7 @@
 }:
 
 let
-  gcc = import ./gcc.nix {};
+  gcc = import ./gccWithCache.nix {};
 in pkgs.buildEnv {
   name = "judge${if minimal then "-minimal" else ""}";
   paths = [
@@ -16,6 +16,7 @@ in pkgs.buildEnv {
     gcc
     pkgs.fpc
   ] ++ (if !minimal then [
+    pkgs.nix
     pkgs.gdb
     pkgs.ghc
     pkgs.rustc

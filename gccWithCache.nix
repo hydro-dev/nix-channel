@@ -1,14 +1,14 @@
 { 
   pkgs ? import <nixpkgs> { system = "x86_64-linux"; },
-  gcc ? pkgs.gcc-unwrapped
+  gccUnwrapped ? pkgs.gcc-unwrapped
 }:
 
 let
   gccPatched = pkgs.runCommand "gcc" {} ''
-    cp -r ${gcc} $out
+    cp -r ${gccUnwrapped} $out
     function gchgen {
       echo $2 $3
-      ${gcc}/bin/g++ -x c++-header -lm -fno-stack-limit -fdiagnostics-color=always -std=$2 -c $1 -o $1.gch/$2.gch $3
+      ${gccUnwrapped}/bin/g++ -x c++-header -lm -fno-stack-limit -fdiagnostics-color=always -std=$2 -c $1 -o $1.gch/$2.gch $3
     }
     function ensureSingleCache {
       echo "Creating cache for $1"
