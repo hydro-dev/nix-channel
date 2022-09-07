@@ -25,6 +25,8 @@ in pkgs.buildEnv {
     pkgs.python3Minimal
     pkgs.python3Packages.numpy
     pkgs.python3Packages.tkinter
+    pkgs.python3Packages.pillow
+    pkgs.ghostscript
     pkgs.php
     pkgs.go
     pkgs.nodejs
