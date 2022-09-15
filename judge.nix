@@ -34,7 +34,7 @@ in pkgs.buildEnv {
     pkgs.openjdk_headless
     pkgs.ruby
     pkgs.mono
-    pkgs.julia_17-bin
+    pkgs.julia-bin
     pkgs.verilog
     pkgs.gbenchmark
     pkgs.xvfb-run

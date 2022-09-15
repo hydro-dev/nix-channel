@@ -38,7 +38,7 @@ in pkgs.stdenv.mkDerivation {
     pkgs.dpkg
   ];
   buildInputs = [
-    pkgs.openssl # libcrypto.so.1.1 libssl.so.1.1
+    pkgs.openssl_1_1 # libcrypto.so.1.1 libssl.so.1.1
     pkgs.xz # liblzma.so.5
     pkgs.curl # libcurl.so.4
   ];
