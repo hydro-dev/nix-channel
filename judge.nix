@@ -21,7 +21,6 @@ in pkgs.buildEnv {
     pkgs.ghc
     pkgs.rustc
     pkgs.python2
-    pkgs.pythonPackages.numpy
     pkgs.python3Minimal
     pkgs.python3Packages.numpy
     pkgs.python3Packages.tkinter
