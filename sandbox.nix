@@ -1,19 +1,27 @@
 { 
-  pkgs ? import <nixpkgs> { system = "x86_64-linux"; },
-  version ? "1.5.2"
+  system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { system = system; },
+  version ? "1.5.3"
 }:
 
 let
   sha256dict = {
-    "1.5.1" = "sha256-bJ8dOpiIDM+Iubd8IBAkSPsHpJSUdOsiUozuHGHMVyE=";
-    "1.5.2" = "sha256-ABtoJ3ABQl2Ymg5aowB+lkrWYLQKsbgKBFLMzRsD3HY=";
+    "1.5.1x86_64-linux" = "sha256-bJ8dOpiIDM+Iubd8IBAkSPsHpJSUdOsiUozuHGHMVyE=";
+    "1.5.2x86_64-linux" = "sha256-ABtoJ3ABQl2Ymg5aowB+lkrWYLQKsbgKBFLMzRsD3HY=";
+    "1.5.3x86_64-linux" = "sha256-aSL972fMHhR5LZe7HK2VxAur0sWXjfjJY2L2PxR95Po=";
+    "1.5.3aarch64-linux" = "sha256-33iXaD2niZaaT7YoIi5XpIjOipk37lfoD6NM6+OICps=";
   };
+  systemMap = {
+    "x86_64-linux" = "linux_amd64";
+    "aarch64-linux" = "linux_arm64";
+  };
+  versionDetail = pkgs.lib.concatStrings [version system];
 in pkgs.stdenv.mkDerivation {
-  name = "hydro-sandbox-1.5.0";
-  system = "x86_64-linux";
+  name = "hydro-sandbox-${version}";
+  system = system;
   src = pkgs.fetchurl {
-    url = "https://kr.hydro.ac/download/executorserver_${version}_linux_amd64.gz";
-    sha256 = if pkgs.lib.hasAttr version sha256dict then pkgs.lib.getAttr version sha256dict else "";
+    url = "https://kr.hydro.ac/download/executorserver_${version}_${pkgs.lib.getAttr system systemMap}.gz";
+    sha256 = if pkgs.lib.hasAttr versionDetail sha256dict then pkgs.lib.getAttr versionDetail sha256dict else "";
   };
   unpackPhase = "true";
   installPhase = ''
@@ -27,6 +35,6 @@ in pkgs.stdenv.mkDerivation {
     description = "HydroSandbox";
     homepage = https://github.com/criyle/go-judge;
     maintainers = [ "undefined <i@undefined.moe>" ];
-    platforms = [ "x86_64-linux" ];
+    platforms = [ system ];
   };
 }

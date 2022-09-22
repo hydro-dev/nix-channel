@@ -1,6 +1,7 @@
 # Note: this file is used to construct HydroOJ judge rootfs.
 { 
-  pkgs ? import <nixpkgs> { system = "x86_64-linux"; },
+  system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { system = system; },
   minimal ? false
 }:
 
@@ -33,10 +34,11 @@ in pkgs.buildEnv {
     pkgs.openjdk_headless
     pkgs.ruby
     pkgs.mono
-    pkgs.julia-bin
     pkgs.verilog
     pkgs.gbenchmark
     pkgs.xvfb-run
+  ] else []) ++ (if system == "x86_64-linux" then [
+    pkgs.julia-bin
   ] else []);
   ignoreCollisions = true;
   pathsToLink = [ "/" ];

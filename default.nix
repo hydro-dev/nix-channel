@@ -7,19 +7,19 @@ let
 
   self = {
     mongodb = import ./mongodb.nix;
-    mongodb6 = callPackage ./mongodb.nix { version = "6.0.0"; };
-    mongodb5 = callPackage ./mongodb.nix { version = "5.0.10"; };
-    mongodb4 = callPackage ./mongodb.nix { version = "4.4.15"; };
-    mongosh5 = callPackage ./mongodb.nix { version = "5.0.10"; type = "shell"; };
-    mongosh4 = callPackage ./mongodb.nix { version = "4.4.15"; type = "shell"; };
-    mongodb6-cn = callPackage ./mongodb.nix { version = "6.0.0"; mirror = tuna; };
-    mongodb5-cn = callPackage ./mongodb.nix { version = "5.0.10"; mirror = tuna; };
-    mongodb4-cn = callPackage ./mongodb.nix { version = "4.4.15"; mirror = tuna; };
-    mongosh5-cn = callPackage ./mongodb.nix { version = "5.0.10"; type = "shell"; mirror = tuna; };
-    mongosh4-cn = callPackage ./mongodb.nix { version = "4.4.15"; type = "shell"; mirror = tuna; };
-    sandbox = callPackage ./sandbox.nix {};
-    gcc = callPackage ./gccWithCache.nix {};
-    judge = callPackage ./judge.nix {};
+    mongodb6 = callPackage ./mongodb.nix { version = "6.0.0"; inherit system; };
+    mongodb5 = callPackage ./mongodb.nix { version = "5.0.10"; inherit system; };
+    mongodb4 = callPackage ./mongodb.nix { version = "4.4.16"; inherit system; };
+    mongosh5 = callPackage ./mongodb.nix { version = "5.0.10"; type = "shell"; inherit system; };
+    mongosh4 = callPackage ./mongodb.nix { version = "4.4.16"; type = "shell"; inherit system; };
+    mongodb6-cn = callPackage ./mongodb.nix { version = "6.0.0"; mirror = tuna; inherit system; };
+    mongodb5-cn = callPackage ./mongodb.nix { version = "5.0.10"; mirror = tuna; inherit system; };
+    mongodb4-cn = callPackage ./mongodb.nix { version = "4.4.16"; mirror = tuna; inherit system; };
+    mongosh5-cn = callPackage ./mongodb.nix { version = "5.0.10"; type = "shell"; mirror = tuna; inherit system; };
+    mongosh4-cn = callPackage ./mongodb.nix { version = "4.4.16"; type = "shell"; mirror = tuna; inherit system; };
+    sandbox = callPackage ./sandbox.nix { inherit system; };
+    gcc = callPackage ./gccWithCache.nix { inherit system; };
+    judge = callPackage ./judge.nix { inherit system; };
   };
 in
 self
