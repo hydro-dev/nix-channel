@@ -22,7 +22,7 @@ in pkgs.buildEnv {
     pkgs.ghc
     pkgs.rustc
     pkgs.python2
-    pkgs.python3Minimal
+    pkgs.python3
     pkgs.python3Packages.numpy
     pkgs.python3Packages.tkinter
     pkgs.python3Packages.pillow
