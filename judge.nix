@@ -13,6 +13,7 @@ in pkgs.buildEnv {
     pkgs.coreutils
     pkgs.bash
     pkgs.diffutils
+    pkgs.zip
     pkgs.unzip
     gcc
     pkgs.fpc
@@ -27,7 +28,7 @@ in pkgs.buildEnv {
     pkgs.python3Packages.tkinter
     pkgs.python3Packages.pillow
     pkgs.ghostscript
-    pkgs.php
+    (pkgs.php.withExtensions ({ enabled, all }: []))
     pkgs.go
     pkgs.nodejs
     pkgs.esbuild
