@@ -4,6 +4,7 @@
   version ? "1.5.4"
 }:
 
+with pkgs.lib;
 let
   sha256dict = {
     "1.5.1x86_64-linux" = "sha256-bJ8dOpiIDM+Iubd8IBAkSPsHpJSUdOsiUozuHGHMVyE=";
@@ -17,26 +18,19 @@ let
     "x86_64-linux" = "linux_amd64";
     "aarch64-linux" = "linux_arm64";
   };
-  versionDetail = pkgs.lib.concatStrings [version system];
-in pkgs.stdenv.mkDerivation {
+  versionDetail = concatStrings [version system];
+  src = builtins.fetchurl {
+    name = "hydro-sandbox-${version}.gz";
+    url = "https://kr.hydro.ac/download/executorserver_${version}_${getAttr system systemMap}.gz";
+    sha256 = if hasAttr versionDetail sha256dict then getAttr versionDetail sha256dict else "";
+  };
+in derivation {
   name = "hydro-sandbox-${version}";
   system = system;
-  src = pkgs.fetchurl {
-    url = "https://kr.hydro.ac/download/executorserver_${version}_${pkgs.lib.getAttr system systemMap}.gz";
-    sha256 = if pkgs.lib.hasAttr versionDetail sha256dict then pkgs.lib.getAttr versionDetail sha256dict else "";
-  };
-  unpackPhase = "true";
-  installPhase = ''
-    mkdir -p $out/bin
-    cp $src $out/bin/hydro-sandbox.gz
-    gzip -d $out/bin/hydro-sandbox.gz
-    chmod +x $out/bin/hydro-sandbox
-  '';
-
-  meta = {
-    description = "HydroSandbox";
-    homepage = https://github.com/criyle/go-judge;
-    maintainers = [ "undefined <i@undefined.moe>" ];
-    platforms = [ system ];
-  };
+  builder = "${pkgs.bash}/bin/bash";
+  args = ["-c" ''
+    ${pkgs.coreutils}/bin/mkdir -p $out/bin && \
+    ${pkgs.gzip}/bin/gzip -d ${src} -c >$out/bin/hydro-sandbox && \
+    ${pkgs.coreutils}/bin/chmod +x $out/bin/hydro-sandbox
+  ''];
 }

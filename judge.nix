@@ -6,24 +6,23 @@
 }:
 
 let
-  gcc = import ./gccWithCache.nix {};
 in pkgs.buildEnv {
   name = "judge${if minimal then "-minimal" else ""}";
   paths = [
     pkgs.coreutils
     pkgs.bash
-    pkgs.diffutils
-    pkgs.zip
-    pkgs.unzip
-    gcc
+    pkgs.diffutils # For default checker
+    pkgs.nix # For nix-store info
+    pkgs.unzip # For submit answer
+    (import ./gccWithCache.nix {})
     pkgs.fpc
+    pkgs.python2
+    pkgs.python3
   ] ++ (if !minimal then [
-    pkgs.nix
+    pkgs.zip
     pkgs.gdb
     pkgs.ghc
     pkgs.rustc
-    pkgs.python2
-    pkgs.python3
     pkgs.python3Packages.numpy
     pkgs.python3Packages.tkinter
     pkgs.python3Packages.pillow
