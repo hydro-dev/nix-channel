@@ -27,10 +27,11 @@ let
 in derivation {
   name = "hydro-sandbox-${version}";
   system = system;
-  builder = "${pkgs.bash}/bin/bash";
+  # https://github.com/NixOS/nix/issues/2176
+  builder = "${pkgs.busybox}/bin/sh";
   args = ["-c" ''
-    ${pkgs.coreutils}/bin/mkdir -p $out/bin && \
-    ${pkgs.gzip}/bin/gzip -d ${src} -c >$out/bin/hydro-sandbox && \
-    ${pkgs.coreutils}/bin/chmod +x $out/bin/hydro-sandbox
+    ${pkgs.busybox}/bin/mkdir -p $out/bin && \
+    ${pkgs.busybox}/bin/gunzip -d ${src} -c >$out/bin/hydro-sandbox && \
+    ${pkgs.busybox}/bin/chmod +x $out/bin/hydro-sandbox
   ''];
 }
