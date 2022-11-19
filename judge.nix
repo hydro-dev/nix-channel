@@ -23,6 +23,7 @@ in pkgs.buildEnv {
     pkgs.gdb
     pkgs.ghc
     pkgs.rustc
+    pkgs.cimg
     pkgs.python3Packages.numpy
     pkgs.python3Packages.tkinter
     pkgs.python3Packages.pillow
