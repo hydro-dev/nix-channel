@@ -23,7 +23,7 @@ in pkgs.buildEnv {
     pkgs.gdb
     pkgs.ghc
     pkgs.rustc
-    pkgs.sqlite3
+    pkgs.sqlite
     pkgs.cimg
     pkgs.python3Packages.numpy
     pkgs.python3Packages.tkinter
