@@ -19,7 +19,7 @@ let
   versionDetail = concatStrings [version system];
   src = builtins.fetchurl {
     name = "hydro-sandbox-${version}.gz";
-    url = "https://kr.hydro.ac/download/executorserver_${version}_${getAttr system systemMap}.gz";
+    url = "https://hydro.ac/download/executorserver_${version}_${getAttr system systemMap}.gz";
     sha256 = if hasAttr versionDetail sha256dict then getAttr versionDetail sha256dict else "";
   };
 in derivation {
