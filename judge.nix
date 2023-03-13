@@ -1,35 +1,38 @@
 # Note: this file is used to construct HydroOJ judge rootfs.
-{ 
+{
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> { system = system; },
   minimal ? false
 }:
 
 let
+  gcc = import ./gccWithCache.nix {};
+  php = pkgs.php.withExtensions ({ enabled, all }: []);
 in pkgs.buildEnv {
   name = "judge${if minimal then "-minimal" else ""}";
   paths = [
     pkgs.coreutils
     pkgs.bash
-    pkgs.diffutils # For default checker
-    pkgs.nix # For nix-store info
-    pkgs.unzip # For submit answer
-    (import ./gccWithCache.nix {})
-    pkgs.fpc
-    pkgs.python2
-    pkgs.python3
-  ] ++ (if !minimal then [
+    pkgs.diffutils
+    pkgs.nix
     pkgs.zip
+    pkgs.unzip
+    gcc
+    pkgs.fpc
+  ] ++ (if !minimal then [
     pkgs.gdb
     pkgs.ghc
     pkgs.rustc
+    pkgs.difftastic
     pkgs.sqlite
     pkgs.cimg
+    pkgs.python3
+    pkgs.python3Packages.pandas
     pkgs.python3Packages.numpy
     pkgs.python3Packages.tkinter
     pkgs.python3Packages.pillow
     pkgs.ghostscript
-    (pkgs.php.withExtensions ({ enabled, all }: []))
+    php
     pkgs.go
     pkgs.nodejs
     pkgs.esbuild
