@@ -1,14 +1,14 @@
 # Note: this file is used to construct HydroOJ judge rootfs.
-{
-  system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> { system = system; },
-  minimal ? false
+{ system ? builtins.currentSystem
+, pkgs ? import <nixpkgs> { system = system; }
+, minimal ? false
 }:
 
 let
-  gcc = import ./gccWithCache.nix {};
-  php = pkgs.php.withExtensions ({ enabled, all }: []);
-in pkgs.buildEnv {
+  gcc = import ./gccWithCache.nix { };
+  php = pkgs.php.withExtensions ({ enabled, all }: [ ]);
+in
+pkgs.buildEnv {
   name = "judge${if minimal then "-minimal" else ""}";
   paths = [
     pkgs.coreutils
@@ -19,34 +19,37 @@ in pkgs.buildEnv {
     pkgs.unzip
     gcc
     pkgs.fpc
-  ] ++ (if !minimal then [
-    pkgs.gdb
-    pkgs.ghc
-    pkgs.rustc
-    pkgs.difftastic
-    pkgs.sqlite
-    pkgs.cimg
-    pkgs.python3
-    pkgs.python3Packages.pandas
-    pkgs.python3Packages.pytz
-    pkgs.python3Packages.dateutil
-    pkgs.python3Packages.numpy
-    pkgs.python3Packages.tkinter
-    pkgs.python3Packages.pillow
-    pkgs.ghostscript
-    php
-    pkgs.go
-    pkgs.nodejs
-    pkgs.esbuild
-    pkgs.openjdk_headless
-    pkgs.ruby
-    pkgs.mono
-    pkgs.verilog
-    pkgs.gbenchmark
-    pkgs.xvfb-run
-  ] else []) ++ (if system == "x86_64-linux" then [
+  ] ++ (if !minimal then
+    ((with pkgs; [
+      gdb
+      ghc
+      rustc
+      sqlite
+      go
+      nodejs
+      esbuild
+      openjdk_headless
+      ruby
+      mono
+      verilog
+      gbenchmark
+      python3
+      ghostscript
+      xvfb-run
+      cimg
+    ]) ++ [
+      php
+    ] ++ (with pkgs.python3Packages; [
+      pandas
+      pytz
+      dateutil
+      six
+      numpy
+      tkinter
+      pillow
+    ])) else [ ]) ++ (if system == "x86_64-linux" then [
     pkgs.julia-bin
-  ] else []);
+  ] else [ ]);
   ignoreCollisions = true;
   pathsToLink = [ "/" ];
   postBuild = ''
