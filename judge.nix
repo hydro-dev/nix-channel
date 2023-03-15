@@ -28,6 +28,8 @@ in pkgs.buildEnv {
     pkgs.cimg
     pkgs.python3
     pkgs.python3Packages.pandas
+    pkgs.python3Packages.pytz
+    pkgs.python3Packages.dateutil
     pkgs.python3Packages.numpy
     pkgs.python3Packages.tkinter
     pkgs.python3Packages.pillow
