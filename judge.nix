@@ -25,6 +25,7 @@ pkgs.buildEnv {
       ghc
       rustc
       sqlite
+      kotlin
       go
       nodejs
       esbuild
@@ -34,6 +35,7 @@ pkgs.buildEnv {
       verilog
       gbenchmark
       python3
+      pypy3
       ghostscript
       xvfb-run
       cimg
