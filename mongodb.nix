@@ -23,13 +23,15 @@ let
   };
   arch = pkgs.lib.getAttr system archDict;
   versionDetail = pkgs.lib.concatStrings [version system];
-in pkgs.stdenv.mkDerivation {
+in pkgs.stdenvNoCC.mkDerivation {
   name = "hydro-mongodb-${version}";
   system = system;
   src = pkgs.fetchurl {
     url = "${mirror}apt/ubuntu/dists/focal/mongodb-org/${major}.${minor}/multiverse/binary-${arch}/mongodb-org-server_${version}_${arch}.deb";
     sha256 = if pkgs.lib.hasAttr versionDetail sha256dict then pkgs.lib.getAttr versionDetail sha256dict else "";
   };
+  # https://github.com/oxalica/rust-overlay/commit/c949d341f2b507857d589c48d1bd719896a2a224
+  depsHostHost = pkgs.lib.optional (!pkgs.hostPlatform.isDarwin) pkgs.gccForLibs.lib;
   nativeBuildInputs = [
     pkgs.autoPatchelfHook 
     pkgs.dpkg
