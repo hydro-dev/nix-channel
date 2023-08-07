@@ -39,6 +39,7 @@ pkgs.buildEnv {
       ghostscript
       xvfb-run
       cimg
+      qemu
     ]) ++ [
       php
     ] ++ (with pkgs.python3Packages; [
