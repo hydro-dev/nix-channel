@@ -1,7 +1,7 @@
 { 
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> { system = system; },
-  version ? "1.6.7"
+  version ? "1.6.10"
 }:
 
 with pkgs.lib;
@@ -13,6 +13,8 @@ let
     "1.6.2aarch64-linux" = "sha256:0wlf8q93hbmn3qyg577v2r9vbvyqvlsk36r10mwxyddf784yb3kg";
     "1.6.7x86_64-linux" = "sha256:0grjz3as2rss12sh73jxphhbkdi623a3afsg7b77llsqqiw82r5b";
     "1.6.7aarch64-linux" = "sha256:1bxacx8dqadkbxv5jymny60wn8g5bgjrzpyqscfbvjfrrpjmqr42";
+    "1.6.10x86_64-linux" = "sha256:13zj8bixw43hqnx4x5kg48f04k73jvm0bd7j5j8xxir009xpj95b";
+    "1.6.10aarch64-linux" = "sha256:0bl5z9hb8chw5bhr8jhg4j08r3yzk0qlhf7fjh16nfb5vzsnynm1";
   };
   systemMap = {
     "x86_64-linux" = "linux_amd64";
