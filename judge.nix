@@ -5,7 +5,7 @@
 }:
 
 let
-  gcc = import ./gccWithCache.nix { };
+  gcc = import ./gccWithCache.nix { inherit pkgs; inherit system; };
   php = pkgs.php.withExtensions ({ enabled, all }: [ ]);
 in
 pkgs.buildEnv {
