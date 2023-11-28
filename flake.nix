@@ -7,6 +7,8 @@
       {
         packages.judge = (import ./judge.nix)
           { pkgs = nixpkgs.legacyPackages.${system}; system = system; };
+        packages.mongodb = (import ./mongodb.nix)
+          { pkgs = nixpkgs.legacyPackages.${system}; system = system; };
       }
     );
 }
