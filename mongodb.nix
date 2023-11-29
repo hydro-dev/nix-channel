@@ -10,12 +10,12 @@ let
     "4.4.16x86_64-linux" = "sha256-JZjGYCF5Ip0wqr+GTlHw9jdY0ZsswPN0aLdFAK1C35M=";
     "5.0.10x86_64-linux" = "sha256-NV+a1bBdY5z2559cJYgNYlTvoRfGHVWrvmyWcCLgxls=";
     "6.0.0x86_64-linux" = "sha256-AJUQ8Jo/T4PDnYtFg3njUZyoH9XXzleZ+nj/knCBKzg=";
-    "6.0.12x86_64-linux" = "sha256-7HHYBSMYudDUg/8HiCRkn4iCAjIkLpZLCeokLTHLgUA=";
+    "6.0.12x86_64-linux" = "sha256-Fgk42wwdKLDZJsE1GxB4fcB1z22P0zkDxDb0HXu1ZsM=";
     "7.0.4x86_64-linux" = "sha256-6C/K+SwEMAX1wsJH1ltQAVWjKY2aNqfqv5EXcER4WCY=";
     "4.4.16aarch64-linux" = "sha256-8L+4uwIvhuVw9t4N1CuStHnwIZhOdZqiBsjcN+iIyBI=";
     "5.0.10aarch64-linux" = "sha256-phLLCL1wXE0pjrb4n1xQjoTVDYuFFRz5RQdfmYj9HPY=";
     "6.0.0aarch64-linux" = "sha256-nEmpS2HUeQdehQAiFgxKLnnYVV9aPKtUtb/GRS9f+4M=";
-    "6.0.12aarch64-linux" = "sha256-OEZKPsvDARZOBECg083inqfqPc6jnjckY1IY2Yb3IbE=";
+    "6.0.12aarch64-linux" = "sha256-0xAOKjFYVIIoRtDm6Cdqq+WP+ArpVlOna/YqePF3XKI=";
   };
   versionDetail = pkgs.lib.concatStrings [ version system ];
   buildDownloadUrl = system: version:
@@ -33,7 +33,7 @@ let
     pkgs.lib.concatStrings [
       mirror
       # Prefer debian bookworm as its package was built with openssl3
-      (if nmajor >= 7 then "apt/debian/dists/bookworm" else "apt/ubuntu/dists/bionic")
+      (if nmajor >= 7 then "apt/debian/dists/bookworm" else "apt/ubuntu/dists/focal")
       "/mongodb-org/"
       "${major}.${minor}"
       (if nmajor >= 7 then "/main" else "/multiverse")
