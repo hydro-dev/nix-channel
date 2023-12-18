@@ -16,7 +16,7 @@ let
     mongodb6-cn = callPackage ./mongodb.nix { version = "6.0.12"; mirror = tuna; inherit system; };
     mongodb5-cn = callPackage ./mongodb.nix { version = "5.0.10"; mirror = tuna; inherit system; };
     mongodb4-cn = callPackage ./mongodb.nix { version = "4.4.16"; mirror = tuna; inherit system; };
-    sandbox = callPackage ./sandbox.nix { inherit system; };
+    cyaron = callPackage ./cyaron.nix { inherit system; };
     gcc = callPackage ./gccWithCache.nix { inherit system; };
     judge = callPackage ./judge.nix { inherit system; };
   };
