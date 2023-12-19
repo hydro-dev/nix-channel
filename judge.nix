@@ -8,6 +8,7 @@ let
   gcc = import ./gccWithCache.nix { inherit pkgs; inherit system; };
   php = pkgs.php.withExtensions ({ enabled, all }: [ ]);
   cyaron = import ./cyaron.nix { inherit pkgs; inherit system; };
+  xeger = import ./xeger.nix { inherit pkgs; inherit system; };
 in
 pkgs.buildEnv {
   name = "judge${if minimal then "-minimal" else ""}";
@@ -51,6 +52,7 @@ pkgs.buildEnv {
       numpy
       tkinter
       pillow
+      xeger
       cyaron
     ])) else [ ]) ++ (if system == "x86_64-linux" then [
     pkgs.julia-bin

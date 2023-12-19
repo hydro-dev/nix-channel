@@ -9,6 +9,8 @@
           { pkgs = nixpkgs.legacyPackages.${system}; system = system; };
         packages.cyaron = (import ./cyaron.nix)
           { pkgs = nixpkgs.legacyPackages.${system}; system = system; };
+        packages.xeger = (import ./xeger.nix)
+          { pkgs = nixpkgs.legacyPackages.${system}; system = system; };
         packages.mongodb = (import ./mongodb.nix)
           { pkgs = nixpkgs.legacyPackages.${system}; system = system; };
       }
