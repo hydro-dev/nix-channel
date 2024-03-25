@@ -67,6 +67,6 @@ pkgs.buildEnv {
     mkdir $out/buildInfo
     echo 'root:x:0:0:root:/root:/bin/bash' >$out/etc/passwd
     date >$out/buildInfo/timestamp
-    ln -sf ${locales}/lib/locale/locale-archive $out/usr/lib/locale
+    ln -sf ${locales}/lib/locale/locale-archive $out/lib/locale
   '';
 }
