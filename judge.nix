@@ -56,6 +56,7 @@ pkgs.buildEnv {
       cyaron
     ])) else [ ]) ++ (if system == "x86_64-linux" then [
     pkgs.julia-bin
+    pkgs.R
   ] else [ ]);
   ignoreCollisions = true;
   pathsToLink = [ "/" ];
