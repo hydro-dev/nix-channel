@@ -9,6 +9,7 @@ let
   php = pkgs.php.withExtensions ({ enabled, all }: [ ]);
   cyaron = import ./cyaron.nix { inherit pkgs; inherit system; };
   xeger = import ./xeger.nix { inherit pkgs; inherit system; };
+  locales = (pkgs.glibcLocales.override { locales = [ "zh_CN.UTF-8" "en_US.UTF-8" ]; });
 in
 pkgs.buildEnv {
   name = "judge${if minimal then "-minimal" else ""}";
@@ -22,7 +23,7 @@ pkgs.buildEnv {
     gcc
     pkgs.fpc
     pkgs.glibc
-    (pkgs.glibcLocales.override { locales = [ "en_US.UTF-8" ]; })
+    locales
   ] ++ (if !minimal then
     ((with pkgs; [
       gdb
@@ -66,5 +67,6 @@ pkgs.buildEnv {
     mkdir $out/buildInfo
     echo 'root:x:0:0:root:/root:/bin/bash' >$out/etc/passwd
     date >$out/buildInfo/timestamp
+    ln -sf ${locales}/lib/locale/locale-archive $out/usr/lib/locale
   '';
 }
