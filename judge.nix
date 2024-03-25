@@ -21,6 +21,8 @@ pkgs.buildEnv {
     pkgs.unzip
     gcc
     pkgs.fpc
+    pkgs.glibc
+    (pkgs.glibcLocales.override { locales = [ "en_US.UTF-8" ]; })
   ] ++ (if !minimal then
     ((with pkgs; [
       gdb
