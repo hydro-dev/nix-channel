@@ -1,5 +1,5 @@
 { system ? builtins.currentSystem
-, pkgs ? import <nixpkgs> { system = system; }
+, pkgs
 , version ? "6.0.12"
 , mirror ? "https://repo.mongodb.org/"
 }:
@@ -11,11 +11,12 @@ let
     "5.0.10x86_64-linux" = "sha256-NV+a1bBdY5z2559cJYgNYlTvoRfGHVWrvmyWcCLgxls=";
     "6.0.0x86_64-linux" = "sha256-AJUQ8Jo/T4PDnYtFg3njUZyoH9XXzleZ+nj/knCBKzg=";
     "6.0.12x86_64-linux" = "sha256-Fgk42wwdKLDZJsE1GxB4fcB1z22P0zkDxDb0HXu1ZsM=";
-    "7.0.4x86_64-linux" = "sha256-6C/K+SwEMAX1wsJH1ltQAVWjKY2aNqfqv5EXcER4WCY=";
+    "7.0.11x86_64-linux" = "sha256-NCRNvYnR0GfJ9q9pDmQWR7Cs6GgGalMxuTF0mdfXsZs=";
     "4.4.16aarch64-linux" = "sha256-8L+4uwIvhuVw9t4N1CuStHnwIZhOdZqiBsjcN+iIyBI=";
     "5.0.10aarch64-linux" = "sha256-phLLCL1wXE0pjrb4n1xQjoTVDYuFFRz5RQdfmYj9HPY=";
     "6.0.0aarch64-linux" = "sha256-nEmpS2HUeQdehQAiFgxKLnnYVV9aPKtUtb/GRS9f+4M=";
     "6.0.12aarch64-linux" = "sha256-0xAOKjFYVIIoRtDm6Cdqq+WP+ArpVlOna/YqePF3XKI=";
+    "7.0.11aarch64-linux" = "sha256-g+7fCH4KWxDCsCtlkrts8i+ARy3jigF3O2tEINVE5b0=";
   };
   versionDetail = pkgs.lib.concatStrings [ version system ];
   buildDownloadUrl = system: version:
@@ -32,12 +33,10 @@ let
     in
     pkgs.lib.concatStrings [
       mirror
-      # Prefer debian bookworm as its package was built with openssl3
-      (if nmajor >= 7 then "apt/debian/dists/bookworm" else "apt/ubuntu/dists/focal")
+      (if nmajor >= 7 then "apt/ubuntu/dists/jammy" else "apt/ubuntu/dists/focal")
       "/mongodb-org/"
       "${major}.${minor}"
-      (if nmajor >= 7 then "/main" else "/multiverse")
-      "/binary-"
+      "/multiverse/binary-"
       arch
       "/mongodb-org-server_"
       version
@@ -75,7 +74,7 @@ pkgs.stdenvNoCC.mkDerivation {
 
   meta = {
     description = "MongoDB";
-    homepage = https://www.mongodb.com/;
+    homepage = "https://www.mongodb.com/";
     maintainers = with pkgs.lib.maintainers; [ undefined-moe ];
     platforms = [ system ];
   };

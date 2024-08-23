@@ -1,6 +1,4 @@
-{ system ? builtins.currentSystem
-, pkgs ? import <nixpkgs> { system = system; }
-}:
+{ pkgs, ... }:
 pkgs.python3Packages.buildPythonPackage rec {
   pname = "xeger";
   version = "0.4.0";

@@ -9,10 +9,11 @@ let
 
   self = {
     mongodb = import ./mongodb.nix;
-    mongodb7 = callPackage ./mongodb.nix { version = "7.0.4"; inherit system; };
+    mongodb7 = callPackage ./mongodb.nix { version = "7.0.11"; inherit system; };
     mongodb6 = callPackage ./mongodb.nix { version = "6.0.12"; inherit system; };
     mongodb5 = callPackage ./mongodb.nix { version = "5.0.10"; inherit system; };
     mongodb4 = callPackage ./mongodb.nix { version = "4.4.16"; inherit system; };
+    mongodb7-cn = callPackage ./mongodb.nix { version = "7.0.11"; mirror = tuna; inherit system; };
     mongodb6-cn = callPackage ./mongodb.nix { version = "6.0.12"; mirror = tuna; inherit system; };
     mongodb5-cn = callPackage ./mongodb.nix { version = "5.0.10"; mirror = tuna; inherit system; };
     mongodb4-cn = callPackage ./mongodb.nix { version = "4.4.16"; mirror = tuna; inherit system; };

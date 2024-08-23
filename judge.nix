@@ -1,6 +1,6 @@
 # Note: this file is used to construct HydroOJ judge rootfs.
 { system ? builtins.currentSystem
-, pkgs ? import <nixpkgs> { system = system; }
+, pkgs
 , minimal ? false
 }:
 
@@ -67,6 +67,5 @@ pkgs.buildEnv {
     mkdir $out/buildInfo
     echo 'root:x:0:0:root:/root:/bin/bash' >$out/etc/passwd
     date >$out/buildInfo/timestamp
-    ls $out/lib/locale
   '';
 }
