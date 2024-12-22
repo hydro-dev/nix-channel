@@ -12,7 +12,7 @@ let
     cp -a ${gccUnwrapped.lib} $lib
     cp -a ${gccUnwrapped.libgcc} $libgcc
     function gchgen {
-      echo $2 $3
+      echo $1 $2 $3
       ${gccUnwrapped}/bin/g++ -x c++-header -lm -fno-stack-limit -fdiagnostics-color=always -std=$2 -c $1 -o $1.gch/$2.gch $3
     }
     function ensureSingleCache {
@@ -33,6 +33,7 @@ let
       gchgen $filename c++14 -O2
       gchgen $filename c++17 -O2
       gchgen $filename c++2a -O2
+      gchgen $filename c++23 -O2
     }
     function ensureCache {
       filename=$(basename $1)
