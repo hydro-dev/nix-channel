@@ -7,6 +7,8 @@
       {
         packages = let
           tuna = "https://mirrors.tuna.tsinghua.edu.cn/mongodb/";
+          iscas = "https://mirror.iscas.ac.cn/mongodb/";
+          nju = "https://mirrors.nju.edu.cn/mongodb/";
           callPackage = file: args: import file (args // { pkgs = nixpkgs.legacyPackages.${system}; system = system; });
         in {
           judge = callPackage ./judge.nix {};
@@ -22,6 +24,14 @@
           mongodb6-cn = callPackage ./mongodb.nix { version = "6.0.12"; mirror = tuna; inherit system; };
           mongodb5-cn = callPackage ./mongodb.nix { version = "5.0.10"; mirror = tuna; inherit system; };
           mongodb4-cn = callPackage ./mongodb.nix { version = "4.4.16"; mirror = tuna; inherit system; };
+          mongodb7-iscas = callPackage ./mongodb.nix { version = "7.0.11"; mirror = iscas; inherit system; };
+          mongodb6-iscas = callPackage ./mongodb.nix { version = "6.0.12"; mirror = iscas; inherit system; };
+          mongodb5-iscas = callPackage ./mongodb.nix { version = "5.0.10"; mirror = iscas; inherit system; };
+          mongodb4-iscas = callPackage ./mongodb.nix { version = "4.4.16"; mirror = iscas; inherit system; };
+          mongodb7-nju = callPackage ./mongodb.nix { version = "7.0.11"; mirror = nju; inherit system; };
+          mongodb6-nju = callPackage ./mongodb.nix { version = "6.0.12"; mirror = nju; inherit system; };
+          mongodb5-nju = callPackage ./mongodb.nix { version = "5.0.10"; mirror = nju; inherit system; };
+          mongodb4-nju = callPackage ./mongodb.nix { version = "4.4.16"; mirror = nju; inherit system; };
         };
         mongodb = import ./mongodb.nix;
       }
