@@ -12,6 +12,7 @@
           callPackage = file: args: import file (args // { pkgs = nixpkgs.legacyPackages.${system}; system = system; });
         in {
           judge = callPackage ./judge.nix {};
+          judge-minimal = callPackage ./judge.nix { minimal = true; };
           cyaron = callPackage ./cyaron.nix {};
           xeger = callPackage ./xeger.nix {};
           mongodb = callPackage ./mongodb.nix {};
