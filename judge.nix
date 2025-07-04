@@ -6,7 +6,7 @@
 
 let
   gcc = import ./gccWithCache.nix { inherit pkgs; inherit system; };
-  php = pkgs.php.withExtensions ({ enabled, all }: [ ]);
+  php = pkgs.php.withExtensions ({ }: [ ]);
   cyaron = import ./cyaron.nix { inherit pkgs; inherit system; };
   xeger = import ./xeger.nix { inherit pkgs; inherit system; };
   locales = (pkgs.glibcLocales.override { locales = [ "zh_CN.UTF-8" "en_US.UTF-8" ]; });
@@ -21,6 +21,8 @@ pkgs.buildEnv {
     pkgs.zip
     pkgs.unzip
     gcc
+    pkgs.testlib
+    pkgs.gawk
     pkgs.fpc
     pkgs.glibc
     locales
@@ -57,10 +59,10 @@ pkgs.buildEnv {
       pillow
       xeger
       cyaron
-    ])) else [ ]) ++ (if system == "x86_64-linux" then [
+    ])) ++ (if system == "x86_64-linux" then [
     pkgs.julia-bin
     pkgs.R
-  ] else [ ]);
+  ] else [ ]) else [ ]) ;
   ignoreCollisions = true;
   pathsToLink = [ "/" ];
   postBuild = ''
