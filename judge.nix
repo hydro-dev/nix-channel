@@ -6,7 +6,7 @@
 
 let
   gcc = import ./gccWithCache.nix { inherit pkgs; inherit system; };
-  php = pkgs.php.withExtensions ({ }: [ ]);
+  php = pkgs.php.withExtensions ({ ... }: [ ]);
   cyaron = import ./cyaron.nix { inherit pkgs; inherit system; };
   xeger = import ./xeger.nix { inherit pkgs; inherit system; };
   locales = (pkgs.glibcLocales.override { locales = [ "zh_CN.UTF-8" "en_US.UTF-8" ]; });
