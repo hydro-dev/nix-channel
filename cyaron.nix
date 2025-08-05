@@ -13,6 +13,8 @@ pkgs.python3Packages.buildPythonPackage rec {
     xeger
   ];
   doCheck = false;
+  pyproject = true;
+  build-system = [ pkgs.python3Packages.setuptools ];
   src = pkgs.fetchPypi {
     inherit pname version;
     sha256 = "sha256-B0kLUoP7YstDckfAdVmuB4rUmw+g9l/6It6boTuSsII=";
