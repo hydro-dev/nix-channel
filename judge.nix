@@ -41,7 +41,7 @@ pkgs.buildEnv {
       mono
       verilog
       gbenchmark
-      python3Full
+      python3
       pypy3
       ghostscript
       xvfb-run
