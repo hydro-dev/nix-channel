@@ -53,7 +53,7 @@ pkgs.stdenvNoCC.mkDerivation {
     sha256 = if pkgs.lib.hasAttr versionDetail sha256dict then pkgs.lib.getAttr versionDetail sha256dict else "";
   };
   # https://github.com/oxalica/rust-overlay/commit/c949d341f2b507857d589c48d1bd719896a2a224
-  depsHostHost = pkgs.lib.optional (!pkgs.hostPlatform.isDarwin) pkgs.gccForLibs.lib;
+  depsHostHost = pkgs.lib.optional (!pkgs.stdenv.hostPlatform.isDarwin) pkgs.gccForLibs.lib;
   nativeBuildInputs = [
     pkgs.autoPatchelfHook
     pkgs.dpkg
