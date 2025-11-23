@@ -1,7 +1,12 @@
 { system ? builtins.currentSystem
 , pkgs
-, version ? "6.0.12"
-, mirror ? "https://repo.mongodb.org/"
+, version ? "7.0.11"
+, mirrors ? [
+    "https://mirrors.nju.edu.cn/mongodb/"
+    "https://mirror.iscas.ac.cn/mongodb/"
+    "https://mirrors.tuna.tsinghua.edu.cn/mongodb/"
+    "https://repo.mongodb.org/"
+  ]
 }:
 
 let
@@ -32,7 +37,6 @@ let
       nmajor = pkgs.lib.strings.toInt major;
     in
     pkgs.lib.concatStrings [
-      mirror
       (if nmajor >= 7 then "apt/ubuntu/dists/jammy" else "apt/ubuntu/dists/focal")
       "/mongodb-org/"
       "${major}.${minor}"
@@ -44,14 +48,31 @@ let
       arch
       ".deb"
     ];
+  expectedHash = if pkgs.lib.hasAttr versionDetail sha256dict then pkgs.lib.getAttr versionDetail sha256dict else "";
+  debFile = pkgs.stdenvNoCC.mkDerivation {
+    name = "mongodb-deb-${version}";
+    inherit system;
+    unpackPhase = "true";
+    installPhase = pkgs.lib.concatStringsSep "\n" (map
+      (mirror: ''
+        echo "Trying to download from ${mirror}${buildDownloadUrl system version}"
+        SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ${pkgs.curl}/bin/curl -o $out ${mirror}${buildDownloadUrl system version} || true
+        hash=$(${pkgs.busybox}/bin/busybox sha256sum $out | ${pkgs.gawk}/bin/awk '{print $1}')
+        if [ "$hash" == "${expectedHash}" ]; then
+          echo "Download success"
+          exit 0
+        fi
+      '')
+      mirrors);
+    outputHashMode = "flat";
+    outputHashAlgo = "sha256";
+    outputHash = expectedHash;
+  };
 in
 pkgs.stdenvNoCC.mkDerivation {
   name = "hydro-mongodb-${version}";
   inherit system;
-  src = pkgs.fetchurl {
-    url = buildDownloadUrl system version;
-    sha256 = if pkgs.lib.hasAttr versionDetail sha256dict then pkgs.lib.getAttr versionDetail sha256dict else "";
-  };
+  src = debFile;
   # https://github.com/oxalica/rust-overlay/commit/c949d341f2b507857d589c48d1bd719896a2a224
   depsHostHost = pkgs.lib.optional (!pkgs.stdenv.hostPlatform.isDarwin) pkgs.gccForLibs.lib;
   nativeBuildInputs = [
