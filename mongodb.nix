@@ -57,11 +57,13 @@ let
       (mirror: ''
         echo "Trying to download from ${mirror}${buildDownloadUrl system version}"
         SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ${pkgs.curl}/bin/curl -o $out ${mirror}${buildDownloadUrl system version} || true
-        hash=$(${pkgs.busybox}/bin/busybox sha256sum $out | ${pkgs.gawk}/bin/awk '{print $1}')
+        hash=$(${pkgs.nix}/bin/nix --extra-experimental-features nix-command --extra-experimental-features flakes hash file $out --type sha256)
+        echo "Got hash $hash , expect ${expectedHash}"
         if [ "$hash" == "${expectedHash}" ]; then
           echo "Download success"
           exit 0
         fi
+        exit 1
       '')
       mirrors);
     outputHashMode = "flat";
