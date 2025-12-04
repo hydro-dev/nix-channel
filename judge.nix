@@ -39,7 +39,7 @@ pkgs.buildEnv {
       openjdk_headless
       ruby
       mono
-      verilog
+      iverilog
       gbenchmark
       python3
       pypy3
@@ -52,7 +52,7 @@ pkgs.buildEnv {
     ] ++ (with pkgs.python3Packages; [
       pandas
       pytz
-      dateutil
+      python-dateutil
       six
       numpy
       tkinter
