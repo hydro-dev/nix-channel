@@ -53,7 +53,7 @@ let
     name = "mongodb-deb-${version}";
     inherit system;
     unpackPhase = "true";
-    installPhase = pkgs.lib.concatStringsSep "\n" (map
+    installPhase = (pkgs.lib.concatStringsSep "\n" (map
       (mirror: ''
         echo "Trying to download from ${mirror}${buildDownloadUrl system version}"
         SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ${pkgs.curl}/bin/curl -o $out ${mirror}${buildDownloadUrl system version} || true
@@ -63,9 +63,10 @@ let
           echo "Download success"
           exit 0
         fi
-        exit 1
       '')
-      mirrors);
+      mirrors)) + ''
+        exit 1
+      '';
     outputHashMode = "flat";
     outputHashAlgo = "sha256";
     outputHash = expectedHash;
