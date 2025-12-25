@@ -1,6 +1,6 @@
 { system ? builtins.currentSystem
 , pkgs
-, version ? "7.0.11"
+, version ? "7.0.28"
 , mirrors ? [
     "https://mirrors.nju.edu.cn/mongodb/"
     "https://mirror.iscas.ac.cn/mongodb/"
@@ -12,16 +12,16 @@
 let
   major = pkgs.lib.elemAt (pkgs.lib.splitString "." version) 0;
   sha256dict = {
-    "4.4.16x86_64-linux" = "sha256-JZjGYCF5Ip0wqr+GTlHw9jdY0ZsswPN0aLdFAK1C35M=";
-    "5.0.10x86_64-linux" = "sha256-NV+a1bBdY5z2559cJYgNYlTvoRfGHVWrvmyWcCLgxls=";
-    "6.0.0x86_64-linux" = "sha256-AJUQ8Jo/T4PDnYtFg3njUZyoH9XXzleZ+nj/knCBKzg=";
-    "6.0.12x86_64-linux" = "sha256-Fgk42wwdKLDZJsE1GxB4fcB1z22P0zkDxDb0HXu1ZsM=";
-    "7.0.11x86_64-linux" = "sha256-NCRNvYnR0GfJ9q9pDmQWR7Cs6GgGalMxuTF0mdfXsZs=";
-    "4.4.16aarch64-linux" = "sha256-8L+4uwIvhuVw9t4N1CuStHnwIZhOdZqiBsjcN+iIyBI=";
-    "5.0.10aarch64-linux" = "sha256-phLLCL1wXE0pjrb4n1xQjoTVDYuFFRz5RQdfmYj9HPY=";
-    "6.0.0aarch64-linux" = "sha256-nEmpS2HUeQdehQAiFgxKLnnYVV9aPKtUtb/GRS9f+4M=";
-    "6.0.12aarch64-linux" = "sha256-0xAOKjFYVIIoRtDm6Cdqq+WP+ArpVlOna/YqePF3XKI=";
-    "7.0.11aarch64-linux" = "sha256-g+7fCH4KWxDCsCtlkrts8i+ARy3jigF3O2tEINVE5b0=";
+    "4.4.30x86_64-linux" = "sha256-VxbkCMKFIRxyhDzTlXlPcCluPz8MKmUPdCK4QcjvseU=";
+    "5.0.32x86_64-linux" = "sha256-eV4rHHPTmcxFRizujWMkjEZ3yxwCetJ2RayKtRuWp2Q=";
+    "6.0.27x86_64-linux" = "sha256-kjHJ42mT5+EGIPnM8Vv3j6npeUOGByDc/4yX3d5XUq8=";
+    "7.0.28x86_64-linux" = "sha256-3oDvm5PAX6H+85c4P3xdYf/gctb9oAilgrtbLd/QvDc=";
+    "8.2.3x86_64-linux" = "sha256-5oGk7dx8cWGU0lyoNSt8Hm9QgbVSzWOdnAKpKtBi5kY=";
+    "4.4.30aarch64-linux" = "sha256-tLHuFov47sMmSXf1UeSfZztCNHNwrwk+p6FivjlEyVA=";
+    "5.0.32aarch64-linux" = "sha256-qjWBO+JCpe6r+Tx66ojQpEHI88Z0QO8V3AinhPUpRLc=";
+    "6.0.27aarch64-linux" = "sha256-oLhX4xO5KnrGnQEam+GM97SuabH7tNLMJbSAI0ZbO2s=";
+    "7.0.28aarch64-linux" = "sha256-Pavus1VuK27fe7QExYDpUza6j0+MhVclA7kBtfpeWIo=";
+    "8.2.3aarch64-linux" = "sha256-AbG4Xfnqcm+z7AvA2/ltEp58Qdp6EF3UdzHCT5iD9Fs=";
   };
   versionDetail = pkgs.lib.concatStrings [ version system ];
   buildDownloadUrl = system: version:
@@ -37,7 +37,7 @@ let
       nmajor = pkgs.lib.strings.toInt major;
     in
     pkgs.lib.concatStrings [
-      (if nmajor >= 7 then "apt/ubuntu/dists/jammy" else "apt/ubuntu/dists/focal")
+      (if nmajor >= 6 then "apt/ubuntu/dists/jammy" else "apt/ubuntu/dists/focal")
       "/mongodb-org/"
       "${major}.${minor}"
       "/multiverse/binary-"
@@ -84,7 +84,7 @@ pkgs.stdenvNoCC.mkDerivation {
   buildInputs = [
     pkgs.xz # liblzma.so.5
     pkgs.curl # libcurl.so.4
-  ] ++ (if (pkgs.lib.strings.toInt major) <= 6 then [
+  ] ++ (if (pkgs.lib.strings.toInt major) <= 5 then [
     pkgs.openssl_1_1 # libcrypto.so.1.1 libssl.so.1.1
   ] else [ ]);
   unpackPhase = "true";
